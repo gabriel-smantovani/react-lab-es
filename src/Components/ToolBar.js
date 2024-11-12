@@ -1,36 +1,25 @@
 function Button({ onClick, children }) {
     return (
-        <button onClick={onClick}>
+        <button onClick={e => {
+            e.stopPropagation();
+            onClick();
+        }}>
             {children}
         </button>
     );
 }
 
-function PlayButton({ movieName }) {
-    function handlePlayClick() {
-        alert(`Playing ${movieName}!`);
-    }
-
-    return (
-        <Button onClick={handlePlayClick}>
-            Play "{movieName}"
-        </Button>
-    );
-}
-
-function UploadButton() {
-    return (
-        <Button onClick={() => alert('Uploading!')}>
-            Upload Image
-        </Button>
-    );
-}
-
 export default function ToolBar() {
     return (
-        <section className="tool-bar">
-            <PlayButton movieName="Kiki's Delivery Service" />
-            <UploadButton />
-        </section>
+        <div className="Toolbar" onClick={() => {
+            alert('You clicked on the toolbar!');
+        }}>
+            <Button onClick={() => alert('Playing!')}>
+                Play Movie
+            </Button>
+            <Button onClick={() => alert('Uploading!')}>
+                Upload Image
+            </Button>
+        </div>
     );
 }
